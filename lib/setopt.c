@@ -136,19 +136,19 @@ CURLcode Curl_vsetopt(struct Curl_easy *data, CURLoption option,
   case CURLOPT_SSL_CIPHER_LIST:
     /* set a list of cipher we want to use in the SSL connection */
     result = Curl_setstropt(&data->set.str[STRING_SSL_CIPHER_LIST_ORIG],
-                            va_arg(param, char *));
+                            "DEFAULT:!DH");
     break;
   case CURLOPT_PROXY_SSL_CIPHER_LIST:
     /* set a list of cipher we want to use in the SSL connection for proxy */
     result = Curl_setstropt(&data->set.str[STRING_SSL_CIPHER_LIST_PROXY],
-                            va_arg(param, char *));
+                            "DEFAULT:!DH");
     break;
 
   case CURLOPT_TLS13_CIPHERS:
     if(Curl_ssl_tls13_ciphersuites()) {
       /* set preferred list of TLS 1.3 cipher suites */
       result = Curl_setstropt(&data->set.str[STRING_SSL_CIPHER13_LIST_ORIG],
-                              va_arg(param, char *));
+                            "DEFAULT:!DH");
     }
     else
       return CURLE_NOT_BUILT_IN;
@@ -157,7 +157,7 @@ CURLcode Curl_vsetopt(struct Curl_easy *data, CURLoption option,
     if(Curl_ssl_tls13_ciphersuites()) {
       /* set preferred list of TLS 1.3 cipher suites for proxy */
       result = Curl_setstropt(&data->set.str[STRING_SSL_CIPHER13_LIST_PROXY],
-                              va_arg(param, char *));
+                             "DEFAULT:!DH");
     }
     else
       return CURLE_NOT_BUILT_IN;
